@@ -26,6 +26,7 @@ import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.XmlUtil;
+import cn.hutool.http.HttpGlobalConfig;
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.HttpResponse;
 
@@ -53,9 +54,9 @@ public class SoapClient {
 	/** 消息工厂，用于创建消息 */
 	private MessageFactory factory;
 	/** 默认连接超时 */
-	private int connectionTimeout = HttpRequest.TIMEOUT_DEFAULT;
+	private int connectionTimeout = HttpGlobalConfig.getTimeout();
 	/** 默认读取超时 */
-	private int readTimeout = HttpRequest.TIMEOUT_DEFAULT;
+	private int readTimeout = HttpGlobalConfig.getTimeout();
 
 	/**
 	 * 创建SOAP客户端，默认使用soap1.1版本协议

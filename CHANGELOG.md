@@ -7,6 +7,8 @@
 
 ### 新特性
 * 【core】         Tuple增加支持equals和hashcode（issue#469@Github）
+* 【http】          Accept修改默认权重，json优先（issue#472@Github）
+* 【http】          增加HttpGlobalConfig（issue#I10DHC@Gitee）
 
 ### Bug修复
 

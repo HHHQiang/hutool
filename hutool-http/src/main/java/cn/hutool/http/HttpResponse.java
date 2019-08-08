@@ -129,6 +129,17 @@ public class HttpResponse extends HttpBase<HttpResponse> implements Closeable {
 	}
 
 	/**
+	 * 是否为Transfer-Encoding:Chunked的内容
+	 * 
+	 * @return 是否为Transfer-Encoding:Chunked的内容
+	 * @since 4.6.2
+	 */
+	public boolean isChunked() {
+		final String transferEncoding = header(Header.TRANSFER_ENCODING);
+		return transferEncoding != null && transferEncoding.equalsIgnoreCase("Chunked");
+	}
+
+	/**
 	 * 获取本次请求服务器返回的Cookie信息
 	 * 
 	 * @return Cookie字符串
@@ -347,7 +358,7 @@ public class HttpResponse extends HttpBase<HttpResponse> implements Closeable {
 		}
 		return this;
 	}
-	
+
 	/**
 	 * 初始化Http响应<br>
 	 * 初始化包括：
@@ -379,10 +390,10 @@ public class HttpResponse extends HttpBase<HttpResponse> implements Closeable {
 		} catch (IllegalArgumentException e) {
 			StaticLog.warn(e, e.getMessage());
 		}
-		
+
 		// 存储服务端设置的Cookie信息
 		GlobalCookieManager.store(httpConnection);
-		
+
 		final Charset charset = httpConnection.getCharset();
 		this.charsetFromResponse = charset;
 		if (null != charset) {
@@ -392,16 +403,21 @@ public class HttpResponse extends HttpBase<HttpResponse> implements Closeable {
 		if (null == this.in) {
 			// 在一些情况下，返回的流为null，此时提供状态码说明
 			this.in = new ByteArrayInputStream(StrUtil.format("Error request, response status: {}", this.status).getBytes());
-		} else if (isGzip() && false == (in instanceof GZIPInputStream)) {
-			try {
-				in = new GZIPInputStream(in);
-			} catch (IOException e) {
-				// 在类似于Head等方法中无body返回，此时GZIPInputStream构造会出现错误，在此忽略此错误读取普通数据
-				// ignore
+		} else {
+			// TODO 分段响应内容解析
+			
+			if (isGzip() && false == (in instanceof GZIPInputStream)) {
+				// Accept-Encoding: gzip
+				try {
+					in = new GZIPInputStream(in);
+				} catch (IOException e) {
+					// 在类似于Head等方法中无body返回，此时GZIPInputStream构造会出现错误，在此忽略此错误读取普通数据
+					// ignore
+				}
+			} else if (isDeflate() && false == (in instanceof DeflaterInputStream)) {
+				// Accept-Encoding: defalte
+				in = new DeflaterInputStream(in);
 			}
-		} else if (isDeflate() && false == (in instanceof DeflaterInputStream)) {
-			//Accept-Encoding: defalte
-			in = new DeflaterInputStream(in);
 		}
 
 		// 同步情况下强制同步

@@ -47,9 +47,6 @@ import cn.hutool.log.StaticLog;
  */
 public class HttpRequest extends HttpBase<HttpRequest> {
 
-	/** 默认超时时长，-1表示默认超时时长 */
-	public static final int TIMEOUT_DEFAULT = -1;
-
 	private static final String BOUNDARY = "--------------------Hutool_" + RandomUtil.randomString(16);
 	private static final byte[] BOUNDARY_END = StrUtil.format("--{}--\r\n", BOUNDARY).getBytes();
 	private static final String CONTENT_DISPOSITION_TEMPLATE = "Content-Disposition: form-data; name=\"{}\"\r\n\r\n";
@@ -57,6 +54,17 @@ public class HttpRequest extends HttpBase<HttpRequest> {
 
 	private static final String CONTENT_TYPE_MULTIPART_PREFIX = "multipart/form-data; boundary=";
 	private static final String CONTENT_TYPE_FILE_TEMPLATE = "Content-Type: {}\r\n\r\n";
+	
+	/**
+	 * 设置全局默认的连接和读取超时时长
+	 * 
+	 * @param customTimeout 超时时长
+	 * @see HttpGlobalConfig#setTimeout(int)
+	 * @since 4.6.2
+	 */
+	public static void setGlobalTimeout(int customTimeout) {
+		HttpGlobalConfig.setTimeout(customTimeout);
+	}
 
 	/**
 	 * 获取Cookie管理器，用于自定义Cookie管理
@@ -94,9 +102,9 @@ public class HttpRequest extends HttpBase<HttpRequest> {
 	private URLStreamHandler urlHandler;
 	private Method method = Method.GET;
 	/** 默认连接超时 */
-	private int connectionTimeout = TIMEOUT_DEFAULT;
+	private int connectionTimeout = HttpGlobalConfig.timeout;
 	/** 默认读取超时 */
-	private int readTimeout = TIMEOUT_DEFAULT;
+	private int readTimeout = HttpGlobalConfig.timeout;
 	/** 存储表单数据 */
 	private Map<String, Object> form;
 	/** 文件表单对象，用于文件上传 */

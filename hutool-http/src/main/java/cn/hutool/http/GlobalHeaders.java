@@ -41,8 +41,8 @@ public enum GlobalHeaders {
 			this.headers.clear();
 		}
 
-		header(Header.ACCEPT, "text/html,application/xhtml+xml,application/xml,application/json;q=0.9,*/*;q=0.8", true);
-		header(Header.ACCEPT_ENCODING, "gzip", true);
+		header(Header.ACCEPT, "text/html,application/json,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8", true);
+		header(Header.ACCEPT_ENCODING, "gzip, deflate", true);
 		header(Header.ACCEPT_LANGUAGE, "zh-CN,zh;q=0.8", true);
 		// 此Header只有在post请求中有用，因此在HttpRequest的method方法中设置此头信息，此处去掉
 		// header(Header.CONTENT_TYPE, ContentType.FORM_URLENCODED.toString(CharsetUtil.CHARSET_UTF_8), true);

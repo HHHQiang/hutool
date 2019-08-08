@@ -59,6 +59,13 @@ public class HttpUtilTest {
 		FileUtil.writeBytes(str, "f:/test/2D.jpg");
 		Console.log(str);
 	}
+	
+	@Test
+	@Ignore
+	public void getTest5() {
+		String res = HttpUtil.get("https://comment.bilibili.com/67573272.xml");
+		Console.log(res);
+	}
 
 	@Test
 	@Ignore

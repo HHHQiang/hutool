@@ -104,7 +104,7 @@ public class HttpUtil {
 	 * @return 返回内容，如果只检查状态码，正常只返回 ""，不正常返回 null
 	 */
 	public static String get(String urlString) {
-		return get(urlString, HttpRequest.TIMEOUT_DEFAULT);
+		return get(urlString, HttpGlobalConfig.timeout);
 	}
 
 	/**
@@ -151,7 +151,7 @@ public class HttpUtil {
 	 * @return 返回数据
 	 */
 	public static String post(String urlString, Map<String, Object> paramMap) {
-		return post(urlString, paramMap, HttpRequest.TIMEOUT_DEFAULT);
+		return post(urlString, paramMap, HttpGlobalConfig.timeout);
 	}
 
 	/**
@@ -181,7 +181,7 @@ public class HttpUtil {
 	 * @return 返回数据
 	 */
 	public static String post(String urlString, String body) {
-		return post(urlString, body, HttpRequest.TIMEOUT_DEFAULT);
+		return post(urlString, body, HttpGlobalConfig.timeout);
 	}
 
 	/**
