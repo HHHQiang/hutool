@@ -13,7 +13,7 @@ import cn.hutool.core.util.StrUtil;
 public class TextSimilarity {
 
 	/**
-	 * 计算相似度
+	 * 计算相似度，两个都是空串相似度为1，被认为是相同的串
 	 * 
 	 * @param strA 字符串1
 	 * @param strB 字符串2
@@ -30,6 +30,11 @@ public class TextSimilarity {
 		}
 		// 用较大的字符串长度作为分母，相似子串作为分子计算出字串相似度
 		int temp = Math.max(newStrA.length(), newStrB.length());
+		if(0 == temp) {
+			// 两个都是空串相似度为1，被认为是相同的串
+			return 1;
+		}
+		
 		int temp2 = longestCommonSubstring(newStrA, newStrB).length();
 		return NumberUtil.div(temp2, temp);
 	}
@@ -60,7 +65,7 @@ public class TextSimilarity {
 		char c;
 		for (int i = 0; i < length; i++) {
 			c = str.charAt(i);
-			if(false == charReg(c)) {
+			if(false == isInvalidChar(c)) {
 				sb.append(c);
 			}
 		}
@@ -69,12 +74,12 @@ public class TextSimilarity {
 	}
 
 	/**
-	 * 判断字符是否为汉字，数字和字母， 因为对符号进行相似度比较没有实际意义，故符号不加入考虑范围。
+	 * 判断字符是否为非汉字，数字和字母， 因为对符号进行相似度比较没有实际意义，故符号不加入考虑范围。
 	 * 
 	 * @param charValue 字符
-	 * @return 是否为汉字，数字和字母
+	 * @return true表示为非汉字，数字和字母，false反之
 	 */
-	private static boolean charReg(char charValue) {
+	private static boolean isInvalidChar(char charValue) {
 		return (charValue >= 0x4E00 && charValue <= 0XFFF) || //
 				(charValue >= 'a' && charValue <= 'z') || //
 				(charValue >= 'A' && charValue <= 'Z') || //
