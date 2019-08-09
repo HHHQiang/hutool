@@ -13,6 +13,7 @@
 * 【http】         改进HtmlUtil.unescape改为EscapeUtil.unescapeHtml4实现（issue#I10AUY@Gitee）
 
 ### Bug修复
+* 【cache】       修复missCount规则（issue#465@Github）
 
 -------------------------------------------------------------------------------------------------------------
 

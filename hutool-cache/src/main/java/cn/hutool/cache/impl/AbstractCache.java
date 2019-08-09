@@ -351,7 +351,8 @@ public abstract class AbstractCache<K, V> implements Cache<K, V> {
 	private CacheObj<K, V> removeWithoutLock(K key, boolean withMissCount) {
 		final CacheObj<K, V> co = cacheMap.remove(key);
 		if (withMissCount) {
-			this.missCount--;
+			// 在丢失计数有效的情况下，移除一般为get时的超时操作，此处应该丢失数+1
+			this.missCount++;
 		}
 		return co;
 	}
