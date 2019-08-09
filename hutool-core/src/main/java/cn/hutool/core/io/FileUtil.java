@@ -3439,7 +3439,7 @@ public class FileUtil {
 	}
 	
 	/**
-	 * 判断给定的目录是否为给定文件或文件夹的父目录
+	 * 判断给定的目录是否为给定文件或文件夹的子目录
 	 * 
 	 * @param parent 父目录
 	 * @param sub 子目录

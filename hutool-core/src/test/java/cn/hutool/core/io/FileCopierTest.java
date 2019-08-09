@@ -20,13 +20,20 @@ public class FileCopierTest {
 	}
 	
 	@Test
-	@Ignore
+//	@Ignore
 	public void dirCopyTest2() {
 		//测试带.的文件夹复制
-		FileCopier copier = FileCopier.create("D:\\workspace\\java\\.metadata", "D:\\workspace\\java\\temp");
+		FileCopier copier = FileCopier.create("D:\\workspace\\java\\.metadata", "D:\\workspace\\java\\.metadata\\temp");
 		copier.copy();
 		
 		FileUtil.copy("D:\\workspace\\java\\looly\\hutool\\.git", "D:\\workspace\\java\\temp", true);
+	}
+	
+	@Test(expected = IORuntimeException.class)
+	public void dirCopySubTest() {
+		//测试父目录复制到子目录报错
+		FileCopier copier = FileCopier.create("D:\\workspace\\java\\.metadata", "D:\\workspace\\java\\.metadata\\temp");
+		copier.copy();
 	}
 	
 	@Test

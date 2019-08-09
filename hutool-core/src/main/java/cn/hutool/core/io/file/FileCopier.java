@@ -182,6 +182,10 @@ public class FileCopier extends SrcToDestCopier<File, FileCopier>{
 				//源为目录，目标为文件，抛出IO异常
 				throw new IORuntimeException("Src is a directory but dest is a file!");
 			}
+			if(FileUtil.isSub(src, dest)) {
+				throw new IORuntimeException("Dest is a sub directory of src !");
+			}
+			
 			final File subDest = isCopyContentIfDir ? dest : FileUtil.mkdir(FileUtil.file(dest, src.getName()));
 			internalCopyDirContent(src, subDest);
 		} else {// 复制文件
