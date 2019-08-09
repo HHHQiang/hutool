@@ -94,6 +94,17 @@ public class SymmetricTest {
 
 		Assert.assertEquals(content, decryptStr);
 	}
+	
+	@Test
+	public void aesTest4() {
+		String content = "4321c9a2db2e6b08987c3b903d8d11ff";
+		AES aes = new AES(Mode.CBC, Padding.PKCS5Padding, "0123456789ABHAEQ".getBytes(), "DYgjCEIMVrj2W9xN".getBytes());
+		
+		// 加密为16进制表示
+		String encryptHex = aes.encryptHex(content);
+
+		Assert.assertEquals("cd0e3a249eaf0ed80c330338508898c4bddcfd665a1b414622164a273ca5daf7b4ebd2c00aaa66b84dd0a237708dac8e", encryptHex);
+	}
 
 	@Test
 	public void desTest() {
