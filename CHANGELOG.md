@@ -12,6 +12,7 @@
 * 【core】         CollUtil.getFieldValues避免空指针（issue#I10FK9@Gitee）
 * 【http】         改进HtmlUtil.unescape改为EscapeUtil.unescapeHtml4实现（issue#I10AUY@Gitee）
 * 【core】         TextSimilarity改进判断（issue#456@Github）
+* 【poi】           ExcelWriter支持下拉列表（issue#476@Github）
 
 ### Bug修复
 * 【cache】       修复missCount规则（issue#465@Github）
