@@ -355,4 +355,14 @@ public class ExcelWriteTest {
 		writer.writeCellValue(3, 5, "aaa");
 		writer.close();
 	}
+	
+	@Test
+	@Ignore
+	public void addSelectTest() {
+		List<String> row = CollUtil.newArrayList("姓名", "加班日期", "下班时间", "加班时长", "餐补", "车补次数", "车补", "总计");
+		ExcelWriter overtimeWriter = ExcelUtil.getWriter("f:/excel/single_line.xlsx");
+		overtimeWriter.writeCellValue(3, 4, "AAAA");
+		overtimeWriter.addSelect(3, 4, row.toArray(new String[row.size()]));
+		overtimeWriter.close();
+	}
 }

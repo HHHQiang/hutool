@@ -9,6 +9,7 @@ import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
 
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.lang.Assert;
@@ -293,6 +294,16 @@ public class ExcelBase<T extends ExcelBase<T>> implements Closeable {
 	public int getColumnCount(int rowNum) {
 		// getLastCellNum方法返回序号+1的值
 		return this.sheet.getRow(rowNum).getLastCellNum();
+	}
+	
+	/**
+	 * 判断是否为xlsx格式的Excel表（Excel07格式）
+	 * 
+	 * @return 是否为xlsx格式的Excel表（Excel07格式）
+	 * @since 4.6.2
+	 */
+	public boolean isXlsx() {
+		return this.sheet instanceof XSSFSheet;
 	}
 
 	/**

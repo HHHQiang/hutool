@@ -11,13 +11,20 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import org.apache.poi.hssf.usermodel.DVConstraint;
+import org.apache.poi.hssf.usermodel.HSSFDataValidation;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.DataValidation;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.HeaderFooter;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.util.CellRangeAddressList;
+import org.apache.poi.xssf.usermodel.XSSFDataValidationConstraint;
+import org.apache.poi.xssf.usermodel.XSSFDataValidationHelper;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
@@ -449,7 +456,7 @@ public class ExcelWriter extends ExcelBase<ExcelWriter> {
 			this.sheet.setDefaultRowHeightInPoints(height);
 		} else {
 			final Row row = this.sheet.getRow(rownum);
-			if(null != row) {
+			if (null != row) {
 				row.setHeightInPoints(height);
 			}
 		}
@@ -480,6 +487,59 @@ public class ExcelWriter extends ExcelBase<ExcelWriter> {
 		default:
 			break;
 		}
+		return this;
+	}
+	
+	/**
+	 * 增加下拉列表
+	 * 
+	 * @param regions {@link CellRangeAddressList} 指定下拉列表所占的单元格范围
+	 * @param x x坐标，列号，从0开始
+	 * @param y y坐标，行号，从0开始
+	 * @return this
+	 * @since 4.6.2
+	 */
+	public ExcelWriter addSelect(int x, int y, String... selectList) {
+		return addSelect(new CellRangeAddressList(y, y, x, x), selectList);
+	}
+
+	/**
+	 * 增加下拉列表
+	 * 
+	 * @param regions {@link CellRangeAddressList} 指定下拉列表所占的单元格范围
+	 * @param 
+	 * @return this
+	 * @since 4.6.2
+	 */
+	public ExcelWriter addSelect(CellRangeAddressList regions, String... selectList) {
+		final DVConstraint constraint = DVConstraint.createExplicitListConstraint(selectList);
+		
+		// 绑定
+		DataValidation dataValidation = null;
+		
+		if(this.sheet instanceof XSSFSheet) {
+			final XSSFDataValidationHelper dvHelper = new XSSFDataValidationHelper((XSSFSheet)sheet);
+			final XSSFDataValidationConstraint dvConstraint = (XSSFDataValidationConstraint) dvHelper.createExplicitListConstraint(selectList);
+			dataValidation = dvHelper.createValidation(dvConstraint, regions);
+		} else {
+			dataValidation = new HSSFDataValidation(regions, constraint);
+		}
+		
+		dataValidation.setSuppressDropDownArrow(true);
+		dataValidation.setShowErrorBox(true);
+		
+		return addValidationData(dataValidation);
+	}
+
+	/**
+	 * 增加单元格控制，比如下拉列表、日期验证、数字范围验证等
+	 * 
+	 * @param dataValidation {@link DataValidation}
+	 * @return this
+	 * @since 4.6.2
+	 */
+	public ExcelWriter addValidationData(DataValidation dataValidation) {
+		this.sheet.addValidationData(dataValidation);
 		return this;
 	}
 
