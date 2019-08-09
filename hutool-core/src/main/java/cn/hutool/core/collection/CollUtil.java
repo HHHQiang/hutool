@@ -1161,6 +1161,10 @@ public class CollUtil {
 	 */
 	public static List<Object> extract(Iterable<?> collection, Editor<Object> editor, boolean ignoreNull) {
 		final List<Object> fieldValueList = new ArrayList<>();
+		if(null == collection) {
+			return fieldValueList;
+		}
+		
 		Object value;
 		for (Object bean : collection) {
 			value = editor.edit(bean);

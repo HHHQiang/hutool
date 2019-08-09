@@ -16,7 +16,7 @@ public class ImgTest {
 	@Test
 	@Ignore
 	public void compressTest() {
-		Img.from(FileUtil.file("e:/pic/1111.png")).setQuality(0.8).write(FileUtil.file("e:/pic/1111_target.jpg"));
+		Img.from(FileUtil.file("f:/test/4347273249269e3fb272341acc42d4e.jpg")).setQuality(0.8).write(FileUtil.file("f:/test/test_dest.jpg"));
 	}
 	
 	@Test

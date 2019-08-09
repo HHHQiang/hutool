@@ -9,6 +9,8 @@
 * 【core】         Tuple增加支持equals和hashcode（issue#469@Github）
 * 【http】          Accept修改默认权重，json优先（issue#472@Github）
 * 【http】          增加HttpGlobalConfig（issue#I10DHC@Gitee）
+* 【core】         CollUtil.getFieldValues避免空指针（issue#I10FK9@Gitee）
+* 【http】         改进HtmlUtil.unescape改为EscapeUtil.unescapeHtml4实现（issue#I10AUY@Gitee）
 
 ### Bug修复
 

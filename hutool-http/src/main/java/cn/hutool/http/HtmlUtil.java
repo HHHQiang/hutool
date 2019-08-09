@@ -1,5 +1,6 @@
 package cn.hutool.http;
 
+import cn.hutool.core.util.EscapeUtil;
 import cn.hutool.core.util.ReUtil;
 import cn.hutool.core.util.StrUtil;
 
@@ -63,15 +64,8 @@ public class HtmlUtil {
 		if (StrUtil.isBlank(htmlStr)) {
 			return htmlStr;
 		}
-		return htmlStr.replace(StrUtil.HTML_APOS, "'")//
-				.replace("&#039;", "'")//
-				.replace("&#39;", "'")//
-				.replace(StrUtil.HTML_LT, "<")//
-				.replace(StrUtil.HTML_GT, ">")//
-				.replace(StrUtil.HTML_QUOTE, "\"")//
-				.replace(StrUtil.HTML_AMP, "&")//
-				.replace(StrUtil.HTML_NBSP, " "//
-		);
+		
+		return EscapeUtil.unescapeHtml4(htmlStr);
 	}
 
 	// ---------------------------------------------------------------- encode text
