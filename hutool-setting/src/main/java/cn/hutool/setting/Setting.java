@@ -70,6 +70,7 @@ public class Setting extends AbsSetting implements Map<String, String> {
 	 * 空构造
 	 */
 	public Setting() {
+		this.charset = DEFAULT_CHARSET;
 	}
 
 	/**
@@ -359,11 +360,24 @@ public class Setting extends AbsSetting implements Map<String, String> {
 	 * 
 	 * @param regex 正则
 	 */
-	public void setVarRegex(String regex) {
+	public Setting setVarRegex(String regex) {
 		if (null == this.settingLoader) {
 			throw new NullPointerException("SettingLoader is null !");
 		}
 		this.settingLoader.setVarRegex(regex);
+		return this;
+	}
+	
+	/**
+	 * 自定义字符编码
+	 * 
+	 * @param charset 字符编码
+	 * @return this
+	 * @since 4.6.2
+	 */
+	public Setting setCharset(Charset charset) {
+		this.charset = charset;
+		return this;
 	}
 
 	// ------------------------------------------------- Map interface with group
