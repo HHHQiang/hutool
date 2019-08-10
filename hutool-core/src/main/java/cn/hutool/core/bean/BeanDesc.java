@@ -365,7 +365,7 @@ public class BeanDesc implements Serializable{
 		}
 
 		/**
-		 * 获取Getter方法
+		 * 获取Getter方法，可能为{@code null}
 		 * 
 		 * @return Getter方法
 		 */
@@ -374,7 +374,7 @@ public class BeanDesc implements Serializable{
 		}
 
 		/**
-		 * 获取Setter方法
+		 * 获取Setter方法，可能为{@code null}
 		 * 
 		 * @return {@link Method}Setter 方法对象
 		 */

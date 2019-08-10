@@ -15,16 +15,11 @@ import java.util.List;
 import java.util.Map;
 
 import cn.hutool.core.bean.BeanDesc.PropDesc;
-import cn.hutool.core.bean.compare.BeanCompare;
-import cn.hutool.core.bean.compare.CompareOption;
-import cn.hutool.core.bean.compare.ComplexCompareOption;
-import cn.hutool.core.bean.compare.ModifyField;
 import cn.hutool.core.bean.copier.BeanCopier;
 import cn.hutool.core.bean.copier.CopyOptions;
 import cn.hutool.core.bean.copier.ValueProvider;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.convert.Convert;
-import cn.hutool.core.lang.Assert;
 import cn.hutool.core.lang.Editor;
 import cn.hutool.core.lang.Filter;
 import cn.hutool.core.map.CaseInsensitiveMap;
@@ -715,43 +710,5 @@ public class BeanUtil {
 			}
 		}
 		return false;
-	}
-
-	/**
-	 * 通用对象属性比较, 可对属性中的集合类型等复杂类型进行单独匹配
-	 * 限制类和忽略字段可单独定制
-	 * 用于比较对象同名属性值的差异
-	 *
-	 * @param source 源Bean对象
-	 * @param target 目标Bean对象
-	 * @param complexCompareOption 比较选项，见 {@link ComplexCompareOption}
-	 */
-	public static <T> List<ModifyField> compareProperties(T source, T target, ComplexCompareOption complexCompareOption) {
-		Assert.notNull(complexCompareOption, "ComplexCompareOption not null or use method [compareProperties(T source, T target)]");
-		return BeanCompare.create(source, target, complexCompareOption).compare();
-	}
-
-	/**
-	 * 单一对象属性比较, 仅能定义一种限制类和忽略字段
-	 * 用于比较对象同名属性值的差异
-	 *
-	 * @param source 源Bean对象
-	 * @param target 目标Bean对象
-	 * @param compareOption 比较选项，见 {@link CompareOption}
-	 */
-	public static <T> List<ModifyField> compareProperties(T source, T target, CompareOption compareOption) {
-		Assert.notNull(compareOption, "CompareOption not null or use method [compareProperties(T source, T target)]");
-		return BeanCompare.create(source, target, compareOption).compare();
-	}
-
-	/**
-	 * 单一对象属性比较, 仅能定义一种限制类和忽略字段
-	 * 用于比较对象同名属性值的差异
-	 *
-	 * @param source 源Bean对象
-	 * @param target 目标Bean对象
-	 */
-	public static <T> List<ModifyField> compareProperties(T source, T target) {
-		return BeanCompare.create(source, target).compare();
 	}
 }

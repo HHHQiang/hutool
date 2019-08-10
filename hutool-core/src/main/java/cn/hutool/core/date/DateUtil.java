@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Locale;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.comparator.CompareUtil;
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.date.DateModifier.ModifyType;
 import cn.hutool.core.date.format.DateParser;
@@ -1726,6 +1727,30 @@ public class DateUtil {
 			return (calendar.getFirstDayOfWeek() + 6) % 7;
 		}
 		return calendar.getActualMaximum(dateField);
+	}
+	
+	/**
+	 * {@code null}安全的日期比较，{@code null}对象排在末尾
+	 * 
+	 * @param date1 日期1
+	 * @param date2 日期2
+	 * @return 比较结果，如果date1 &lt; date2，返回数小于0，date1==date2返回0，date1 &gt; date2 大于0
+	 * @since 4.6.2
+	 */
+	public static int compare(Date date1, Date date2) {
+		return CompareUtil.compare(date1, date2);
+	}
+	
+	/**
+	 * {@code null}安全的{@link Calendar}比较，{@code null}小于任何日期
+	 * 
+	 * @param calendar1 日期1
+	 * @param calendar2 日期2
+	 * @return 比较结果，如果calendar1 &lt; calendar2，返回数小于0，calendar1==calendar2返回0，calendar1 &gt; calendar2 大于0
+	 *  @since 4.6.2
+	 */
+	public static int compare(Calendar calendar1, Calendar calendar2) {
+		return CompareUtil.compare(calendar1, calendar2);
 	}
 
 	// ------------------------------------------------------------------------ Private method start
