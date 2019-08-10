@@ -205,6 +205,21 @@ public class IterUtil {
 		}
 		return result;
 	}
+	
+	/**
+	 * 两个字段值组成新的Map
+	 * 
+	 * @param <K> 字段名对应值得类型，不确定请使用Object
+	 * @param <V> 值类型，不确定使用Object
+	 * @param iterable 对象列表
+	 * @param fieldNameForKey 做为键的字段名（会通过反射获取其值）
+	 * @param fieldNameForValue 做为值的字段名（会通过反射获取其值）
+	 * @return 某个字段值与对象对应Map
+	 * @since 4.6.2
+	 */
+	public static <K, V> Map<K, V> fieldValueAsMap(Iterable<?> iterable, String fieldNameForKey, String fieldNameForValue) {
+		return fieldValueAsMap(null == iterable ? null : iterable.iterator(), fieldNameForKey, fieldNameForValue);
+	}
 
 	/**
 	 * 两个字段值组成新的Map
@@ -228,6 +243,19 @@ public class IterUtil {
 			}
 		}
 		return result;
+	}
+	
+	/**
+	 * 获取指定Bean列表中某个字段，生成新的列表
+	 * 
+	 * @param <V> 对象类型
+	 * @param iterable 对象列表
+	 * @param fieldName 字段名（会通过反射获取其值）
+	 * @return 某个字段值与对象对应Map
+	 * @since 4.6.2
+	 */
+	public static <V> List<Object> fieldValueList(Iterable<V> iterable, String fieldName) {
+		return fieldValueList(null == iterable ? null : iterable.iterator(), fieldName);
 	}
 
 	/**
