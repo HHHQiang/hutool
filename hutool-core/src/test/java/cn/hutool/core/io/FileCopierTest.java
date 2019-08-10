@@ -20,7 +20,7 @@ public class FileCopierTest {
 	}
 	
 	@Test
-//	@Ignore
+	@Ignore
 	public void dirCopyTest2() {
 		//测试带.的文件夹复制
 		FileCopier copier = FileCopier.create("D:\\workspace\\java\\.metadata", "D:\\workspace\\java\\.metadata\\temp");

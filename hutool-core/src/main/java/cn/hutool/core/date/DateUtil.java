@@ -27,14 +27,14 @@ import cn.hutool.core.util.StrUtil;
  * @author xiaoleilu
  */
 public class DateUtil {
-	
+
 	/**
 	 * java.util.Date EEE MMM zzz 缩写数组
 	 */
-	private final static String wtb[] = {
-		"sun", "mon", "tue", "wed", "thu", "fri", "sat",
-		"jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec",
-		"gmt", "ut", "utc", "est", "edt", "cst", "cdt", "mst", "mdt", "pst", "pdt"
+	private final static String wtb[] = { //
+			"sun", "mon", "tue", "wed", "thu", "fri", "sat", //
+			"jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec", //
+			"gmt", "ut", "utc", "est", "edt", "cst", "cdt", "mst", "mdt", "pst", "pdt"//
 	};
 
 	/**
@@ -632,7 +632,7 @@ public class DateUtil {
 	public static DateTime parse(String dateStr, String format) {
 		return new DateTime(dateStr, format);
 	}
-	
+
 	/**
 	 * 将特定格式的日期转换为Date对象
 	 * 
@@ -724,10 +724,10 @@ public class DateUtil {
 				return parse(utcString, DatePattern.UTC_MS_FORMAT);
 			}
 		} else {
-			if (length == DatePattern.UTC_WITH_ZONE_OFFSET_PATTERN.length() - 3 + 5 || length == DatePattern.UTC_WITH_ZONE_OFFSET_PATTERN.length() - 3 + 6) {
+			if (length == DatePattern.UTC_WITH_ZONE_OFFSET_PATTERN.length() + 2 || length == DatePattern.UTC_WITH_ZONE_OFFSET_PATTERN.length() + 3) {
 				// 格式类似：2018-09-13T05:34:31+0800 或 2018-09-13T05:34:31+08:00
 				return parse(utcString, DatePattern.UTC_WITH_ZONE_OFFSET_FORMAT);
-			}  else if (length == DatePattern.UTC_MS_WITH_ZONE_OFFSET_PATTERN.length() - 3 + 5 || length == DatePattern.UTC_MS_WITH_ZONE_OFFSET_PATTERN.length() - 3 + 6) {
+			} else if (length == DatePattern.UTC_MS_WITH_ZONE_OFFSET_PATTERN.length() + 2 || length == DatePattern.UTC_MS_WITH_ZONE_OFFSET_PATTERN.length() + 3) {
 				// 格式类似：2018-09-13T05:34:31.999+0800 或 2018-09-13T05:34:31.999+08:00
 				return parse(utcString, DatePattern.UTC_MS_WITH_ZONE_OFFSET_FORMAT);
 			}
@@ -1769,7 +1769,7 @@ public class DateUtil {
 		}
 		return calendar.getActualMaximum(dateField);
 	}
-	
+
 	/**
 	 * {@code null}安全的日期比较，{@code null}对象排在末尾
 	 * 
@@ -1781,14 +1781,14 @@ public class DateUtil {
 	public static int compare(Date date1, Date date2) {
 		return CompareUtil.compare(date1, date2);
 	}
-	
+
 	/**
 	 * {@code null}安全的{@link Calendar}比较，{@code null}小于任何日期
 	 * 
 	 * @param calendar1 日期1
 	 * @param calendar2 日期2
 	 * @return 比较结果，如果calendar1 &lt; calendar2，返回数小于0，calendar1==calendar2返回0，calendar1 &gt; calendar2 大于0
-	 *  @since 4.6.2
+	 * @since 4.6.2
 	 */
 	public static int compare(Calendar calendar1, Calendar calendar2) {
 		return CompareUtil.compare(calendar1, calendar2);

@@ -14,6 +14,7 @@
 * 【core】         TextSimilarity改进判断（issue#456@Github）
 * 【poi】           ExcelWriter支持下拉列表（issue#476@Github）
 * 【core】         强化ExceptionUtil（issue#459@Github）
+* 【core】         增强日期工具类（pr#455@Github）
 
 ### Bug修复
 * 【cache】       修复missCount规则（issue#465@Github）
