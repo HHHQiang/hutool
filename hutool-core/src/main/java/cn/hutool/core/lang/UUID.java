@@ -96,6 +96,7 @@ public final class UUID implements java.io.Serializable, Comparable<UUID> {
 	 * @return 随机生成的 {@code UUID}
 	 */
 	public static UUID fastUUID() {
+		System.out.println("12312");
 		return randomUUID(false);
 	}
 	
